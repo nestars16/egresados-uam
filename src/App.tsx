@@ -12,6 +12,8 @@ import { EgresadoListView , loader as egresadoListLoader} from "./components/cus
 import { FormListView , loader as formListLoader} from "./components/custom/admin/form_table/FormListView.tsx";
 import { FormSingleView , loader as formSingleLoader } from "./components/custom/admin/FormSingleView.tsx";
 import { EgresadoSingleView , loader as egresadoSingleLoader} from "./components/custom/EgresadoSingleView.tsx";
+import { FormCreate } from "./components/custom/admin/FormCreate.tsx";
+
 
 const router = createBrowserRouter([
   {
@@ -42,6 +44,10 @@ const router = createBrowserRouter([
         path : "egresados/:id",
         element : <EgresadoSingleView/>,
         loader : egresadoSingleLoader
+      }, 
+      {
+        path : "forms/create",
+        element : <FormCreate/>,
       }
     ]
   },

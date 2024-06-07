@@ -42,7 +42,7 @@ import { Input } from "@/components/ui/input"
 
 import { Tabs, TabsList, TabsTrigger , TabsContent} from "@/components/ui/tabs"
 import { API_URL } from "@/globals"
-import { redirect , useLoaderData, useNavigate } from "react-router-dom"
+import { Link, redirect , useLoaderData, useNavigate } from "react-router-dom"
 
 export async function loader() {
   const adminJwt = sessionStorage.getItem("jwt");
@@ -208,30 +208,35 @@ export function FormListView() {
           </CardDescription>
         </CardHeader>
         <CardContent className="h-full">
-            <Tabs defaultValue="approved" className="w-[400px] pb-4">
-              <TabsList>
-                <TabsTrigger 
-                  value="approved"
-                  onClick={renderPublished}
-                  onFocus={renderPublished}
-                  >
-                    Published
-                  </TabsTrigger>
-                <TabsTrigger 
-                  value="not-approved"
-                  onClick={renderNotPublished}
-                  onFocus={renderNotPublished}
-                  >
-                    Not Published
-                  </TabsTrigger>
-              </TabsList>
-              <TabsContent value="not-approved">
-                <Button className="bg-green text-green-foreground hover:bg-green-active" variant="outline" disabled={isPublishing} onClick={publishSelected}>
-                  {isPublishing && <Loader2  className="mr-2 h-4 w-4 animate-spin"/>}
-                  {isPublishing? "Publishing" : "Publish All Selected"}
-                </Button>
-              </TabsContent>
-            </Tabs>
+          <div className="flex flex-row justify-between">
+              <Tabs defaultValue="approved" className="w-[400px] pb-4">
+                <TabsList>
+                  <TabsTrigger 
+                    value="approved"
+                    onClick={renderPublished}
+                    onFocus={renderPublished}
+                    >
+                      Published
+                    </TabsTrigger>
+                  <TabsTrigger 
+                    value="not-approved"
+                    onClick={renderNotPublished}
+                    onFocus={renderNotPublished}
+                    >
+                      Not Published
+                    </TabsTrigger>
+                </TabsList>
+                <TabsContent value="not-approved">
+                  <Button className="bg-green text-green-foreground hover:bg-green-active" variant="outline" disabled={isPublishing} onClick={publishSelected}>
+                    {isPublishing && <Loader2  className="mr-2 h-4 w-4 animate-spin"/>}
+                    {isPublishing? "Publishing" : "Publish All Selected"}
+                  </Button>
+                </TabsContent>
+              </Tabs>
+              <Link to="/admin/dashboard/forms/create">
+                <Button variant="link">Create</Button>
+              </Link>
+            </div>
             <div>
               <div className="flex items-center py-4">
                     <Input

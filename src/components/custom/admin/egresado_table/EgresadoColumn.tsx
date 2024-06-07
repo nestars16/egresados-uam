@@ -32,10 +32,13 @@ export type RawEgresado = {
   nombreCompleto : string,
   logInEmail : string,
   fechaGraduacion : string,
+  fechaNacimiento : string,
   contactosTelefonicos : string[],
   correos : string[],
   aprobado : boolean,
-  cargoActual : Job
+  cif : string,
+  cargoActual : Job,
+  trabajos : Job[],
 }
 
 export const columns : ColumnDef<Egresado>[] = [

@@ -51,6 +51,7 @@ export async function loader({params}: {params : Params<"id">}) {
   }
 
   try {
+
     const response = await fetch(`${API_URL}/form/${params.id}`, {
       headers : {
         "Authorization" : `Bearer ${adminJwt}`,
@@ -59,17 +60,22 @@ export async function loader({params}: {params : Params<"id">}) {
     })
 
     const responseJson = await response.json();
+    console.log(responseJson);
 
     if (responseJson.status === "error") {
       sessionStorage.removeItem("jwt");
       return redirect("/")
     } else if (responseJson.status === "success") {
-      return responseJson.data    
+      console.log("Returning" + responseJson.data)
+      return responseJson.data 
     }
+
   }catch(error) {
     console.error(error)
     return redirect("/admin/dashboard/forms")
   }
+
+  return redirect("/")
 }
 
 export function FormSingleView() {
