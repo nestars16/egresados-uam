@@ -18,7 +18,7 @@ import {
 export function AdminSidebar() {
   return(
     <>
-    <Command className="bg-gray-50 rounded-none h-full">
+    <Command className="bg-card rounded-none h-full">
       <CommandList className="overflow-y-auto">
         <CommandGroup heading="Actions">
           <CommandItem>

@@ -108,7 +108,7 @@ export function Login() {
   const passwordRegex = '^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$';
 
   return (
-    <section className="w-full h-full flex flex-col justify-center items-center bg-uam">
+    <section className="w-full h-full flex flex-col justify-center items-center bg-uam dark:bg-slate-900">
     <section className="flex m-2">
       <BrandLoginCard/>
       <Card className="w-[350px] login-form-full-size">

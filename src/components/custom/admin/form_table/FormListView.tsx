@@ -200,14 +200,13 @@ export function FormListView() {
   }, [table])
 
   return (
-    <>
-      <Card className="rounded-none h-full">
+      <Card className="rounded-none w-full h-full">
         <CardHeader>
           <CardTitle className="ml-1">Forms</CardTitle>
           <CardDescription>
           </CardDescription>
         </CardHeader>
-        <CardContent className="h-full">
+        <CardContent>
           <div className="flex flex-row justify-between">
               <Tabs defaultValue="approved" className="w-[400px] pb-4">
                 <TabsList>
@@ -234,7 +233,7 @@ export function FormListView() {
                 </TabsContent>
               </Tabs>
               <Link to="/admin/dashboard/forms/create">
-                <Button variant="link">Create</Button>
+                <Button>Create</Button>
               </Link>
             </div>
             <div>
@@ -317,6 +316,5 @@ export function FormListView() {
             </div>
         </CardContent>
       </Card>
-    </>
   )
 }

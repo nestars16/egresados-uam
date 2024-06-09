@@ -1,5 +1,4 @@
 import { Outlet , useNavigate} from "react-router-dom"
-import { DefaultNavbar } from "@/components/custom/DefaultNavbar"
 import { AdminSidebar } from "@/components/custom/admin/AdminSidebar"
 import { jwtDecode } from "jwt-decode"
 
@@ -23,8 +22,6 @@ export function AdminDashboard(){
   }
 
   return(
-    <>
-      <DefaultNavbar/> 
       <div className="flex h-full w-full">
         <section>
           <AdminSidebar/>
@@ -33,6 +30,5 @@ export function AdminDashboard(){
           <Outlet/> 
         </section>
       </div>
-    </>
   )
 }

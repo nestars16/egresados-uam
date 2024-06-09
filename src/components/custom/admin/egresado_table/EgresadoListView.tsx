@@ -185,13 +185,13 @@ export function EgresadoListView() {
   }
 
   return(
-      <Card className="rounded-none h-full">
+      <Card className="h-full rounded-none">
         <CardHeader>
           <CardTitle className="ml-1">Egresados</CardTitle>
           <CardDescription>
           </CardDescription>
         </CardHeader>
-        <CardContent className="h-full">
+        <CardContent>
             <Tabs defaultValue="approved" className="w-[400px] pb-4">
               <TabsList>
                 <TabsTrigger 

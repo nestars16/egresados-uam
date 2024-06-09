@@ -34,7 +34,7 @@ type Question = {
   answers : Answer[],
 }
 
-type Form = {
+export type Form = {
   id : string,
   name : string,
   description : string | null,
@@ -60,13 +60,11 @@ export async function loader({params}: {params : Params<"id">}) {
     })
 
     const responseJson = await response.json();
-    console.log(responseJson);
 
     if (responseJson.status === "error") {
       sessionStorage.removeItem("jwt");
       return redirect("/")
     } else if (responseJson.status === "success") {
-      console.log("Returning" + responseJson.data)
       return responseJson.data 
     }
 
