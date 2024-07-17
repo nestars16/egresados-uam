@@ -1,4 +1,4 @@
-import { API_URL } from "@/globals"
+import { API_URL } from "@/globals";
 
 import {
   Card,
@@ -6,44 +6,37 @@ import {
   CardDescription,
   CardHeader,
   CardTitle,
-} from "@/components/ui/card"
-import { Params, redirect, useLoaderData } from "react-router-dom"
-import { SingleNotFound } from "../SingleNotFound"
-import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
+} from "@/components/ui/card";
+import { Params, redirect, useLoaderData } from "react-router-dom";
+import { SingleNotFound } from "../SingleNotFound";
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 
 import {
   Accordion,
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
-} from "@/components/ui/accordion"
-import { Button } from "@/components/ui/button"
-
-
-type Answer = {
-  text : string,
-  answeredById : string,
-  answeredByName : string | null,
-}
+} from "@/components/ui/accordion";
+import { Button } from "@/components/ui/button";
 
 type Question = {
-  id: string,
-  question : string,
-  type : string
-  possibleAnswers: string[] | null,
-  answers : Answer[],
-}
+  id: string;
+  question: string;
+  type: string;
+  possibleAnswers: string[] | null;
+  answers: string[];
+};
 
 export type Form = {
-  id : string,
-  name : string,
-  description : string | null,
-  questions : Question[],
-  answersCollectedFrom : string[],
-  published : boolean
-}
+  id: string;
+  name: string;
+  description: string | null;
+  questions: Question[];
+  answersCollectedFrom: string[];
+  published: boolean;
+};
 
-export async function loader({params}: {params : Params<"id">}) {
+export async function loader({ params }: { params: Params<"id"> }) {
   const adminJwt = sessionStorage.getItem("jwt");
 
   if (!adminJwt) {
@@ -51,84 +44,75 @@ export async function loader({params}: {params : Params<"id">}) {
   }
 
   try {
-
     const response = await fetch(`${API_URL}/form/${params.id}`, {
-      headers : {
-        "Authorization" : `Bearer ${adminJwt}`,
-        "Content-Type" : "application/json",
-      }
-    })
+      headers: {
+        Authorization: `Bearer ${adminJwt}`,
+        "Content-Type": "application/json",
+      },
+    });
 
     const responseJson = await response.json();
 
     if (responseJson.status === "error") {
       sessionStorage.removeItem("jwt");
-      return redirect("/")
+      return redirect("/");
     } else if (responseJson.status === "success") {
-      return responseJson.data 
+      return responseJson.data;
     }
-
-  }catch(error) {
-    console.error(error)
-    return redirect("/admin/dashboard/forms")
+  } catch (error) {
+    console.error(error);
+    return redirect("/admin/dashboard/forms");
   }
 
-  return redirect("/")
+  return redirect("/");
 }
 
 export function FormSingleView() {
-  const form = useLoaderData() as Form | null
+  const form = useLoaderData() as Form | null;
 
-  if(!form) {
+  if (!form) {
     return (
       <>
-        <SingleNotFound objectType="Form" redirectTo="/admin/dashboard/forms" message="Go back to dashboard"/> 
+        <SingleNotFound
+          objectType="Form"
+          redirectTo="/admin/dashboard/forms"
+          message="Go back to dashboard"
+        />
       </>
-    )
+    );
   }
 
   return (
     <>
-    <Card className="w-full h-full">
-      <CardHeader className="flex justify-between flex-row">
-        <div>
-          <CardTitle className="mb-3">
-            {form.name}
-          </CardTitle>
-          <CardDescription>
-            {form.description || ""}
-          </CardDescription>
-        </div>
-        <Button variant="outline">
-          Export 
-        </Button>
-      </CardHeader>
-      <CardContent>
-        <Accordion type="multiple" className="w-full">
-          {
-            form.questions.map(
-              (question, index) => 
-               <AccordionItem value={question.id} key={`${index}-${question.id}`}>
+      <Card className="w-full h-full">
+        <CardHeader className="flex justify-between flex-row">
+          <div>
+            <CardTitle className="mb-3">{form.name}</CardTitle>
+            <CardDescription>{form.description || ""}</CardDescription>
+          </div>
+          <Button variant="outline">Export</Button>
+        </CardHeader>
+        <CardContent>
+          <Accordion type="multiple" className="w-full">
+            {form.questions.map((question, index) => (
+              <AccordionItem
+                value={question.id}
+                key={`${index}-${question.id}`}
+              >
                 <AccordionTrigger>{`Question #${index + 1} - ${question.question}`}</AccordionTrigger>
-                  <AccordionContent>
-                    {
-                      question.answers.map(
-                        (answer, index) =>
-                          <Alert key={`${index}-${answer.answeredById}`}>
-                            <AlertTitle>{answer.answeredByName}</AlertTitle>
-                            <AlertDescription>
-                              {answer.text}
-                            </AlertDescription>
-                          </Alert>
-                      )
-                    }
-                  </AccordionContent>
-               </AccordionItem>
-            )
-          }
-        </Accordion>
-      </CardContent>
-    </Card>
+                <AccordionContent>
+                  {question.answers.map((answer, index) => (
+                    <Alert key={`${index}-${answer}`}>
+                      <AlertTitle>{`Answer ${index + 1}`}</AlertTitle>
+                      <AlertDescription>{answer}</AlertDescription>
+                    </Alert>
+                  ))}
+                </AccordionContent>
+              </AccordionItem>
+            ))}
+          </Accordion>
+        </CardContent>
+      </Card>
     </>
-  )
+  );
 }

@@ -39,6 +39,7 @@ export type RawEgresado = {
   cif : string,
   cargoActual : Job,
   trabajos : Job[],
+  resumeLink : string,
 }
 
 export const columns : ColumnDef<Egresado>[] = [
