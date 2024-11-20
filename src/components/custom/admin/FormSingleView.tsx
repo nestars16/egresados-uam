@@ -82,6 +82,48 @@ export function FormSingleView() {
     );
   }
 
+  const downloadExcel = () => {
+    const url = `${API_URL}/form/export/${form.id}`;
+
+    const userJwt = sessionStorage.getItem("jwt");
+
+    if (!userJwt) {
+      return redirect("/");
+    }
+
+    fetch(url, {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${userJwt}`,
+      },
+    })
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        return response.blob(); // Convert response to a Blob
+      })
+      .then((blob) => {
+        // Create a URL for the Blob
+        const downloadUrl = window.URL.createObjectURL(blob);
+
+        // Create an anchor element and trigger a download
+        const link = document.createElement("a");
+        link.href = downloadUrl;
+        link.download = `export-${form.name}.xlsx`; // Default filename
+        document.body.appendChild(link);
+        link.click();
+        link.remove();
+
+        // Revoke the URL after the download is triggered
+        window.URL.revokeObjectURL(downloadUrl);
+      })
+      .catch((error) => {
+        console.error("Error downloading the file:", error);
+        alert("Failed to download file. Please try again.");
+      });
+  };
+
   return (
     <>
       <Card className="w-full h-full">
@@ -90,7 +132,9 @@ export function FormSingleView() {
             <CardTitle className="mb-3">{form.name}</CardTitle>
             <CardDescription>{form.description || ""}</CardDescription>
           </div>
-          <Button variant="outline">Export</Button>
+          <Button variant="outline" onClick={downloadExcel}>
+            Export
+          </Button>
         </CardHeader>
         <CardContent>
           <Accordion type="multiple" className="w-full">
