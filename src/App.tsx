@@ -30,6 +30,7 @@ import {
 import { FormCreate } from "./components/custom/admin/FormCreate.tsx";
 import { DefaultNavbar } from "./components/custom/DefaultNavbar.tsx";
 import { ThemeProvider } from "./components/ui/theme-provider.tsx";
+import AdvertisementManager from "@/components/custom/admin/AdvertisementSingleView.tsx";
 
 const router = createBrowserRouter([
   {
@@ -75,6 +76,10 @@ const router = createBrowserRouter([
           {
             path: "forms/create",
             element: <FormCreate />,
+          },
+          {
+            path: "advertisements",
+            element: <AdvertisementManager />, // Componente de AdvertisementManager
           },
         ],
       },

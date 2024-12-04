@@ -1,8 +1,7 @@
 @import "../../index.css";
 
 .login-presentation-card {
-  background: url(https://i.postimg.cc/wj4VwdMX/posgrado.jpg);
-  background-position: center;
+  background: url(https://i.postimg.cc/wj4VwdMX/posgrado.jpg) center;
   background-size: contain;
   border-radius: var(--radius) 0 0 var(--radius) !important;
   border: none;

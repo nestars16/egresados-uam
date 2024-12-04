@@ -5,7 +5,7 @@ import {
   CommandList,
 } from "@/components/ui/command"
 
-import { NotepadText, UserRound } from "lucide-react"
+import { NotepadText, UserRound, Megaphone } from "lucide-react"
 import { Link } from "react-router-dom"
 
 import {
@@ -39,6 +39,10 @@ export function AdminSidebar() {
                 </ContextMenuContent>
               </ContextMenu>
             </Link>
+          </CommandItem>
+          <CommandItem>
+            <Megaphone className="mr-2" />
+            <Link to="/admin/dashboard/advertisements">Advertisement</Link>
           </CommandItem>
         </CommandGroup>
       </CommandList>
